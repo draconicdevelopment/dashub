@@ -69,7 +69,9 @@
     "husky": "^4.0.0",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.0",
+    "node-sass": "^4.13.1",
     "prettier": "^1.19.1",
+    "sass-loader": "^8.0.2",
     "stylelint": "^13.2.1",
     "ts-jest": "^25.2.1",
     "vue-jest": "^4.0.0-0"
