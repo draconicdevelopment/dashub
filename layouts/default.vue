@@ -3,8 +3,21 @@
     <transition name="fade">
       <div v-if="state.display" class="blur"></div>
     </transition>
+    <div class="navbar">
+      <div class="logo-huge">
+        <img src="../static/img/logo-huge.svg" width="404" height="72" />
+      </div>
+      <div>
+        <div class="user">
+          <span class="user-name">Harvy</span>
+          <div class="user-avatar-wrap">
+            <div class="user-avatar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
-      class="nav"
+      class="drawer"
       @mouseover="state.display = true"
       @mouseleave="state.display = false"
     >
@@ -16,7 +29,7 @@
           height="106"
         />
       </div>
-      <ul class="navbar-nav">
+      <ul class="drawer-nav">
         <li class="nav-item"></li>
       </ul>
     </div>
@@ -39,10 +52,23 @@
 .fade-enter, .fade-leave-to
   opacity: 0;
 
-.nav
+.navbar
+  margin: 60px 64px 64px 192px
+  display: flex
+  justify-content: space-between
+
+  .user
+    display: flex
+    align-items: center
+    justify-content: center
+
+    .user-name
+      text-align: center
+
+.drawer
+  height: calc(100% - 64px)
   width: 128px
-  height: 96%
-  top: 2%
+  top: 32px
   background-color: var(--secondary-bg-color)
   position: fixed
   box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.25)
@@ -62,7 +88,7 @@
     justify-content: center
     transition: ease 300ms
 
-  .navbar-nav
+  .drawer-nav
     padding: 0
     margin: 0
     list-style-type: none

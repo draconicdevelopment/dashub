@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <div class="board"><img src="../static/img/rd.png" width="180" /></div>
-  </div>
+  <div class="board"></div>
 </template>
 
 <style>
@@ -18,7 +16,6 @@ body
 
 .board
   display: block
-  height: 100vh
   margin-left: 192px
   margin-right: 64px
   display: flex
