@@ -1,3 +1,12 @@
+:root {
+  --primary-bg-color: #202020;
+  --secondary-bg-color: #303030;
+}
+
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Mukta', sans-serif;
 }
