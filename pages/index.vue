@@ -15,12 +15,8 @@ body
   background: var(--primary-bg-color)
 
 .board
-  display: block
   margin-left: 192px
   margin-right: 64px
-  display: flex
-  justify-content: center
-  align-items: center
 </style>
 
 <script lang="ts">

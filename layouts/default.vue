@@ -22,12 +22,14 @@
       @mouseleave="state.display = false"
     >
       <div class="logo-container">
-        <img
-          class="logo"
-          src="../static/img/LightIcon.svg"
-          width="106"
-          height="106"
-        />
+        <div class="logo-wrap">
+          <img
+            class="logo"
+            src="../static/img/LightIcon.svg"
+            width="106"
+            height="106"
+          />
+        </div>
       </div>
       <ul class="drawer-nav">
         <li class="nav-item"></li>
@@ -45,12 +47,13 @@
   left: 0
   position: fixed
   backdrop-filter: saturate(100%) blur(12px)
+  z-index: 9
 
 .fade-enter-active, .fade-leave-active
   transition: opacity .15s
 
 .fade-enter, .fade-leave-to
-  opacity: 0;
+  opacity: 0
 
 .navbar
   margin: 60px 64px 64px 192px
@@ -60,10 +63,37 @@
   .user
     display: flex
     align-items: center
-    justify-content: center
+    justify-items: center
+    justify-content: space-between
+    max-width: 350px
 
     .user-name
-      text-align: center
+      font-family: Mukta
+      font-style: normal
+      font-weight: normal
+      font-size: 32px
+      line-height: 36px
+      margin-right: 28px
+      color: #FFFFFF
+
+    .user-avatar-wrap
+      width: 72px
+      height: 72px
+      background: linear-gradient(135deg, #8A2BE2 0%, #E22BD0 100%)
+      border-radius: 50%
+      position: relative
+
+      .user-avatar
+        background-image: url('../static/img/user.png')
+        border-radius: 50%
+        background-position: center center
+        position: absolute
+        top: 50%
+        left: 50%
+        margin-top: -32px
+        margin-left: -32px
+        width: 64px
+        height: 64px
 
 .drawer
   height: calc(100% - 64px)
@@ -74,6 +104,7 @@
   box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.25)
   border-radius: 0px 25px 25px 0px
   transition: ease .15s
+  z-index: 10
 
   &:hover
     width: 360px
@@ -85,8 +116,15 @@
     box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.25)
     border-radius: 0px 25px 25px 0px
     align-items: center
-    justify-content: center
+    justify-content: flex-end
     transition: ease 300ms
+
+    .logo-wrap
+      width: 128px
+      height: 128px
+      display: flex
+      justify-content: center
+      align-items: center
 
   .drawer-nav
     padding: 0

@@ -16,7 +16,13 @@ const config: Configuration = {
         content: process.env.npm_package_description || '',
       },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Mukta&display=swap',
+      },
+    ],
   },
   /*
    ** Customize the progress-bar color
@@ -25,7 +31,7 @@ const config: Configuration = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['~assets/style.css'],
   /*
    ** Plugins to load before mounting the App
    */
