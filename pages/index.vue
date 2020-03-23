@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import Board from '../components/board.vue';
+import Board from '@/components/board.vue';
 
 export default defineComponent({
   components: {
