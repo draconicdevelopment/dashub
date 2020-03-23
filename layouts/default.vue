@@ -46,7 +46,7 @@
   top: 0
   left: 0
   position: fixed
-  backdrop-filter: saturate(100%) blur(12px)
+  backdrop-filter: blur(12px)
   z-index: 9
 
 .fade-enter-active, .fade-leave-active

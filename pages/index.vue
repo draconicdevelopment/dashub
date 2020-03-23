@@ -1,26 +1,16 @@
 <template>
-  <div class="board"></div>
+  <div>
+    <Board />
+  </div>
 </template>
-
-<style>
-:root {
-  --primary-bg-color: #202020;
-  --secondary-bg-color: #303030;
-}
-</style>
-
-<style lang="sass">
-body
-  margin: 0
-  background: var(--primary-bg-color)
-
-.board
-  margin-left: 192px
-  margin-right: 64px
-</style>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import Board from '../components/board.vue';
 
-export default defineComponent({});
+export default defineComponent({
+  components: {
+    Board,
+  },
+});
 </script>
