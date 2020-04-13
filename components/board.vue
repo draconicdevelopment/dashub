@@ -21,10 +21,6 @@
 </template>
 
 <style lang="sass">
-body
-  margin: 0
-  background: var(--primary-bg-color)
-
 .board
   position: relative
   margin-left: 160px
@@ -94,8 +90,12 @@ if (process.client) {
 
   const grid = new Muuri('.board', {
     dragEnabled: true,
+    fillGaps: true,
     layout: {
       fillGaps: false,
+    },
+    dragSortHeuristics: {
+      sortInterval: 50,
     },
   });
 

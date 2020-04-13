@@ -103,7 +103,7 @@
   position: fixed
   box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.25)
   border-radius: 0px 25px 25px 0px
-  transition: ease .15s
+  transition: width ease .15s
   z-index: 10
 
   &:hover

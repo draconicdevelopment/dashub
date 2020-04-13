@@ -24,6 +24,20 @@ const config: Configuration = {
       },
     ],
   },
+  router: {
+    extendRoutes(routes, _) {
+      routes.push({
+        name: 'prefix_plugin',
+        path: '/plugin/:prefix/:name',
+        component: '~/pages/plugin/_prefix/_name.vue',
+      });
+      routes.push({
+        name: 'plugin',
+        path: '/plugin/:name',
+        component: '~/pages/plugin/_prefix/_name.vue',
+      });
+    },
+  },
   /*
    ** Customize the progress-bar color
    */
@@ -64,10 +78,9 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    // extend(config, ctx) {}
+    extend(config) {
+      config.node = { fs: 'empty' };
+    },
   },
 };
 
