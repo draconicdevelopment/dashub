@@ -10,6 +10,8 @@
   </div>
 </template>
 
+<style lang="sass"></style>
+
 <script lang="ts">
 import fs from 'fs';
 import { defineComponent, ref } from '@vue/composition-api';
@@ -27,8 +29,7 @@ export default defineComponent({
   },
   setup(_, ctx) {
     const params = ctx.root.$route.params;
-    // eslint-disable-next-line prefer-const
-    let html = ref('');
+    const html = ref('');
 
     if (process.server) {
       const path =
@@ -47,9 +48,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="sass">
-iframe body
-  margin: 0
-  padding: 0
-</style>
