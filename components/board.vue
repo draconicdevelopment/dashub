@@ -82,8 +82,16 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+// import { useAuth } from '../plugins/provideFirebase';
 
-export default defineComponent({});
+export default defineComponent({
+  setup() {
+    // const { user } = useAuth();
+    // // @ts-ignore
+    // console.log(user.username);
+    // user.username = 'Smrdis';
+  },
+});
 
 if (process.client) {
   const Muuri = require('muuri');
