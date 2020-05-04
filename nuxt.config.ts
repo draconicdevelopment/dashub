@@ -25,7 +25,10 @@ const config: Configuration = {
     ],
   },
   router: {
-    extendRoutes(routes, _) {
+    extendRoutes(
+      routes: { name: string; path: string; component: string }[],
+      _: any,
+    ) {
       routes.push({
         name: 'prefix_plugin',
         path: '/plugin/:prefix/:name',
@@ -35,6 +38,16 @@ const config: Configuration = {
         name: 'plugin',
         path: '/plugin/:name',
         component: '~/pages/plugin/_prefix/_name.vue',
+      });
+      routes.push({
+        name: 'login',
+        path: '/',
+        component: '~/pages/index.vue',
+      });
+      routes.push({
+        name: 'board',
+        path: '/board',
+        component: '~/pages/board.vue'.default,
       });
     },
   },
@@ -49,7 +62,7 @@ const config: Configuration = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/core.ts'],
+  plugins: ['@/plugins/core.ts', '@/plugins/firebase.ts', '@/plugins/state.ts'],
   /*
    ** Nuxt.js dev-modules
    */

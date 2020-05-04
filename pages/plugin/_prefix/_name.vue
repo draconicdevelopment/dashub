@@ -16,6 +16,7 @@
 import fs from 'fs';
 import { defineComponent, ref } from '@vue/composition-api';
 import { Context } from '@nuxt/types';
+// import { useAuth } from '../../../plugins/provideFirebase';
 
 export default defineComponent({
   validate(ctx: Context): boolean {
@@ -41,6 +42,8 @@ export default defineComponent({
 
       html.value = fs.readFileSync(path, 'utf8');
     }
+
+    // const authStore = useAuth();
 
     return {
       html,

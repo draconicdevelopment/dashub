@@ -82,32 +82,27 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-// import { useAuth } from '../plugins/provideFirebase';
 
 export default defineComponent({
-  setup() {
-    // const { user } = useAuth();
-    // // @ts-ignore
-    // console.log(user.username);
-    // user.username = 'Smrdis';
-  },
+  setup() {},
 });
 
-if (process.client) {
-  const Muuri = require('muuri');
+// TODO figure out the error
+// if (process.client) {
+// const Muuri = require('muuri');
 
-  const grid = new Muuri('.board', {
-    dragEnabled: true,
-    fillGaps: true,
-    layout: {
-      fillGaps: false,
-    },
-    dragSortHeuristics: {
-      sortInterval: 50,
-    },
-  });
+// const grid = new Muuri('.board', {
+//   dragEnabled: true,
+//   fillGaps: true,
+//   layout: {
+//     fillGaps: false,
+//   },
+//   dragSortHeuristics: {
+//     sortInterval: 50,
+//   },
+// });
+//   grid.refreshSortData();
 
-  // eslint-disable-next-line no-console
-  console.log(grid);
-}
+//   console.log(grid);
+// }
 </script>

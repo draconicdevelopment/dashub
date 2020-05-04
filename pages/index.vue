@@ -5,15 +5,49 @@
         <div class="logo"></div>
         <form>
           <div class="input-container">
-            <input placeholder="email" type="email" />
-            <input placeholder="password" type="password" />
+            <input v-model="email" placeholder="email" type="email" />
+            <input v-model="password" placeholder="password" type="password" />
           </div>
-          <button class="btn-login">LOG IN</button>
+          <button type="button" class="btn-login" @click="login">
+            LOG IN
+          </button>
         </form>
       </div>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent, ref } from '@vue/composition-api';
+import { signInWithEmailAndPassword } from '../plugins/firebase';
+import { useState } from '../plugins/state';
+
+export default defineComponent({
+  setup(_, setupContext) {
+    const email = ref('');
+    const password = ref('');
+
+    const state = useState();
+
+    async function login() {
+      const user = await signInWithEmailAndPassword(
+        email.value,
+        password.value,
+      );
+      if (user) {
+        setupContext.root.$router.push('/board');
+      }
+    }
+
+    return {
+      email,
+      password,
+      login,
+      state,
+    };
+  },
+});
+</script>
 
 <style lang="sass">
 .container
