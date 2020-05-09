@@ -9,7 +9,7 @@
       </div>
       <div>
         <div class="user">
-          <span class="user-name">Harvy</span>
+          <span class="user-name">{{ authState.user.email }}</span>
           <div class="user-avatar-wrap">
             <div class="user-avatar"></div>
           </div>
@@ -137,6 +137,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from '@vue/composition-api';
+import { useState } from '../plugins/state';
+// import { hydrateAuth } from '../plugins/firebase';
 
 export default defineComponent({
   setup() {
@@ -144,8 +146,11 @@ export default defineComponent({
       display: false,
     });
 
+    const authState = useState();
+
     return {
       state,
+      authState,
     };
   },
 });

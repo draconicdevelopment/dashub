@@ -5,10 +5,18 @@
         <div class="logo"></div>
         <form>
           <div class="input-container">
-            <input v-model="email" placeholder="email" type="email" />
-            <input v-model="password" placeholder="password" type="password" />
+            <input v-model="emailProv" placeholder="email" type="emailProv" />
+            <input
+              v-model="passwordProv"
+              placeholder="password"
+              type="password"
+            />
           </div>
-          <button type="button" class="btn-login" @click="login">
+          <button
+            type="button"
+            class="btn-login"
+            @click="signInWithEmailAndPassword"
+          >
             LOG IN
           </button>
         </form>
@@ -19,30 +27,43 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
-import { signInWithEmailAndPassword } from '../plugins/firebase';
+import { useFirebaseAuth } from '../plugins/firebase';
 import { useState } from '../plugins/state';
+import { StateType } from '../plugins/types';
 
 export default defineComponent({
   setup(_, setupContext) {
-    const email = ref('');
-    const password = ref('');
+    const emailProv = ref('');
+    const passwordProv = ref('');
 
-    const state = useState();
+    const state: StateType = useState();
 
-    async function login() {
-      const user = await signInWithEmailAndPassword(
-        email.value,
-        password.value,
-      );
-      if (user) {
-        setupContext.root.$router.push('/board');
+    const auth = useFirebaseAuth();
+
+    async function signInWithEmailAndPassword() {
+      try {
+        const user = await auth.signInWithEmailAndPassword(
+          emailProv.value,
+          passwordProv.value,
+        );
+
+        if (user) {
+          state.user = {
+            email: user.user?.email,
+            uid: 'idk',
+          };
+          setupContext.root.$router.push('/board');
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e);
       }
     }
 
     return {
-      email,
-      password,
-      login,
+      emailProv,
+      passwordProv,
+      signInWithEmailAndPassword,
       state,
     };
   },

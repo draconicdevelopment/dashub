@@ -47,7 +47,7 @@ const config: Configuration = {
       routes.push({
         name: 'board',
         path: '/board',
-        component: '~/pages/board.vue'.default,
+        component: '~/pages/board.vue',
       });
     },
   },

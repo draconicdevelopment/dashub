@@ -81,28 +81,24 @@
 </style>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, onMounted } from '@vue/composition-api';
 
 export default defineComponent({
-  setup() {},
+  setup() {
+    onMounted(() => {
+      const Muuri = require('muuri');
+      const grid = new Muuri('.board', {
+        dragEnabled: true,
+        fillGaps: true,
+        layout: {
+          fillGaps: false,
+        },
+        dragSortHeuristics: {
+          sortInterval: 50,
+        },
+      });
+      grid.refreshSortData();
+    });
+  },
 });
-
-// TODO figure out the error
-// if (process.client) {
-// const Muuri = require('muuri');
-
-// const grid = new Muuri('.board', {
-//   dragEnabled: true,
-//   fillGaps: true,
-//   layout: {
-//     fillGaps: false,
-//   },
-//   dragSortHeuristics: {
-//     sortInterval: 50,
-//   },
-// });
-//   grid.refreshSortData();
-
-//   console.log(grid);
-// }
 </script>

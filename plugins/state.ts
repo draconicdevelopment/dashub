@@ -1,13 +1,20 @@
 import { provide, inject, reactive } from '@vue/composition-api';
+import { StateType } from './types';
 
-export const AuthSymbol = 'Auth';
+const StateSymbol = Symbol('state');
 
 export const provideState = () => {
-  const globalState = reactive({});
-  provide(AuthSymbol, globalState);
+  const globalState: StateType = reactive({
+    user: {
+      uid: '',
+      email: '',
+    },
+  });
+  provide(StateSymbol, globalState);
 };
 
-export const useState = () => {
-  const state = inject(AuthSymbol);
-  if (state) return state;
+export const useState = (): StateType => {
+  const state = inject<StateType>(StateSymbol);
+  if (!state) throw new Error('No state provided');
+  return state;
 };
