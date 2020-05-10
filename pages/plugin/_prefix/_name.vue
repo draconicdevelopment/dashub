@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import fs from 'fs';
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, ref } from 'nuxt-composition-api';
 import { Context } from '@nuxt/types';
 // import { useAuth } from '../../../plugins/provideFirebase';
 

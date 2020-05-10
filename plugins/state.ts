@@ -1,4 +1,4 @@
-import { provide, inject, reactive } from '@vue/composition-api';
+import { provide, inject, reactive } from 'nuxt-composition-api';
 import { StateType } from './types';
 
 const StateSymbol = Symbol('state');
@@ -8,6 +8,7 @@ export const provideState = () => {
     user: {
       uid: '',
       email: '',
+      loggedIn: false,
     },
   });
   provide(StateSymbol, globalState);

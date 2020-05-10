@@ -22,10 +22,12 @@ export const useFirebaseAuth = () => {
 };
 
 export const hydrateAuth = async () => {
-  const userData: User = await new Promise((resolve) => {
+  const userData: User = await new Promise((resolve, reject) => {
     useFirebaseAuth().onAuthStateChanged((user) => {
       if (user) {
         resolve(user);
+      } else {
+        reject(new Error('No user found'));
       }
     });
   });

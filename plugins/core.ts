@@ -14,10 +14,15 @@ export default ({ app }) => {
     (async () => {
       const user = await hydrateAuth();
 
-      state.user = {
-        uid: user.uid,
-        email: user.email,
-      };
+      if (user) {
+        state.user = {
+          uid: user.uid,
+          email: user.email,
+          loggedIn: true,
+        };
+      } else {
+        state.user.loggedIn = false;
+      }
     })();
   };
 };

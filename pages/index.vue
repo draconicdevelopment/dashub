@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, ref } from 'nuxt-composition-api';
 import { useFirebaseAuth } from '../plugins/firebase';
 import { useState } from '../plugins/state';
 import { StateType } from '../plugins/types';
@@ -50,8 +50,10 @@ export default defineComponent({
         if (user) {
           state.user = {
             email: user.user?.email,
-            uid: 'idk',
+            uid: user.user?.uid,
+            loggedIn: true,
           };
+
           setupContext.root.$router.push('/board');
         }
       } catch (e) {

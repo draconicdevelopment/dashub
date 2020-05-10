@@ -136,7 +136,7 @@
 </style>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@vue/composition-api';
+import { defineComponent, reactive } from 'nuxt-composition-api';
 import { useState } from '../plugins/state';
 // import { hydrateAuth } from '../plugins/firebase';
 

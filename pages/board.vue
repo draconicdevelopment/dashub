@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'nuxt-composition-api';
 import Board from '@/components/board.vue';
 
 export default defineComponent({
@@ -13,5 +13,6 @@ export default defineComponent({
     Board,
   },
   layout: 'board',
+  setup() {},
 });
 </script>

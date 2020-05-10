@@ -70,6 +70,7 @@ const config: Configuration = {
     '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
     '@nuxt/typescript-build',
+    'nuxt-composition-api',
   ],
 
   typescript: {
