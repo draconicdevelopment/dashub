@@ -1,22 +1,12 @@
-/* eslint-disable no-undef */
-const ignorePaths = [
-  '\u002F__webpack_hmr',
-  '\u002F_loading',
-  '\u002F_nuxt\u002F',
-];
+const ignorePaths = ["\u002F__webpack_hmr","\u002F_loading","\u002F_nuxt\u002F"]
 
-importScripts('https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js');
-firebase.initializeApp({
-  apiKey: 'AIzaSyBp95Odjc3I3WG7k4DGSSqb9LZC1FKExZQ',
-  authDomain: 'dashub-ecfb7.firebaseapp.com',
-  databaseURL: 'https:\u002F\u002Fdashub-ecfb7.firebaseio.com',
-  projectId: 'dashub-ecfb7',
-  storageBucket: 'dashub-ecfb7.appspot.com',
-  messagingSenderId: '874351010489',
-  appId: '1:874351010489:web:e54fc45f23d51834923168',
-  measurementId: 'G-3F2M69JSHM',
-});
+importScripts(
+  'https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js'
+)
+importScripts(
+  'https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js'
+)
+firebase.initializeApp({"apiKey":"AIzaSyBp95Odjc3I3WG7k4DGSSqb9LZC1FKExZQ","authDomain":"dashub-ecfb7.firebaseapp.com","databaseURL":"https:\u002F\u002Fdashub-ecfb7.firebaseio.com","projectId":"dashub-ecfb7","storageBucket":"dashub-ecfb7.appspot.com","messagingSenderId":"874351010489","appId":"1:874351010489:web:e54fc45f23d51834923168","measurementId":"G-3F2M69JSHM"})
 
 /**
  * Returns a promise that resolves with an ID token if available.
@@ -29,14 +19,11 @@ const getIdToken = () => {
       unsubscribe();
       if (user) {
         // force token refresh as it might be used to sign in server side
-        user.getIdToken(true).then(
-          (idToken) => {
-            resolve(idToken);
-          },
-          () => {
-            resolve(null);
-          },
-        );
+        user.getIdToken(true).then((idToken) => {
+          resolve(idToken);
+        }, () => {
+          resolve(null);
+        });
       } else {
         resolve(null);
       }
@@ -44,10 +31,10 @@ const getIdToken = () => {
   });
 };
 
-const fetchWithAuthorization = (original, idToken) => {
+const fetchWithAuthorization = async (original, idToken) => {
   // Clone headers as request headers are immutable.
   const headers = new Headers();
-  for (const entry of original.headers.entries()) {
+  for (let entry of original.headers.entries()) {
     headers.append(entry[0], entry[1]);
   }
 
@@ -60,26 +47,24 @@ const fetchWithAuthorization = (original, idToken) => {
     ...props,
     mode: 'same-origin',
     redirect: 'manual',
-    headers,
+    headers
   });
 
-  return fetch(authorized);
+  return fetch(authorized)
 };
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  const expectsHTML = event.request.headers.get('accept').includes('text/html');
+  const expectsHTML = event.request.headers.get('accept').includes('text/html')
   const isSameOrigin = self.location.origin === url.origin;
-  const isHttps =
-    self.location.protocol === 'https:' ||
-    self.location.hostname === 'localhost';
-  const isIgnored = ignorePaths.some((path) => {
+  const isHttps = (self.location.protocol === 'https:' || self.location.hostname === 'localhost');
+  const isIgnored = ignorePaths.some(path => {
     if (typeof path === 'string') {
-      return url.pathname.startsWith(path);
+      return url.pathname.startsWith(path)
     }
 
-    return path.test(url.pathname.slice(1));
+    return path.test(url.pathname.slice(1))
   });
 
   if (!expectsHTML || !isSameOrigin || !isHttps || isIgnored) {
@@ -92,20 +77,18 @@ self.addEventListener('fetch', (event) => {
   // This can also be integrated with existing logic to serve cached files
   // in offline mode.
   event.respondWith(
-    getIdToken().then((idToken) =>
-      idToken
-        ? // if the token was retrieved we attempt an authorized fetch
-          // if anything goes wrong we fall back to the original request
-          fetchWithAuthorization(event.request, idToken).catch(() =>
-            fetch(event.request),
-          )
-        : // otherwise we return a fetch of the original request directly
-          fetch(event.request),
-    ),
-  );
+    getIdToken().then(
+      idToken => idToken
+        // if the token was retrieved we attempt an authorized fetch
+        // if anything goes wrong we fall back to the original request
+        ? fetchWithAuthorization(event.request, idToken).catch(() => fetch(event.request))
+        // otherwise we return a fetch of the original request directly
+        : fetch(event.request)
+    )
+  )
 });
 
 // In service worker script.
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', event => {
   event.waitUntil(clients.claim());
 });

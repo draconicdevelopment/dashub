@@ -1,6 +1,6 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { User } from '@firebase/auth-types';
+import 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBp95Odjc3I3WG7k4DGSSqb9LZC1FKExZQ',
@@ -21,17 +21,6 @@ export const useFirebaseAuth = () => {
   return firebase.auth();
 };
 
-export const hydrateAuth = async () => {
-  const userData: User = await new Promise((resolve /*, reject */) => {
-    const unsubscribe = useFirebaseAuth().onAuthStateChanged((user) => {
-      unsubscribe();
-      if (user) {
-        resolve(user);
-      } else {
-        // reject(new Error('No user found'));
-      }
-    });
-  });
-
-  return userData;
+export const useFirestore = () => {
+  return firebase.firestore();
 };

@@ -9,7 +9,7 @@
       </div>
       <div>
         <div class="user">
-          <span class="user-name">{{ authState.user.email }}</span>
+          <span class="user-name">{{ displayName }}</span>
           <div class="user-avatar-wrap">
             <div class="user-avatar"></div>
           </div>
@@ -32,7 +32,9 @@
         </div>
       </div>
       <ul class="drawer-nav">
-        <li class="nav-item"></li>
+        <li class="nav-item">
+          <button @click="logOut">Sign out</button>
+        </li>
       </ul>
     </div>
     <nuxt />
@@ -136,21 +138,53 @@
 </style>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'nuxt-composition-api';
+import {
+  defineComponent,
+  reactive,
+  useAsync,
+  useContext,
+} from 'nuxt-composition-api';
 import { useState } from '../plugins/state';
-// import { hydrateAuth } from '../plugins/firebase';
+import { useFirebaseAuth, useFirestore } from '../plugins/firebase';
 
 export default defineComponent({
   setup() {
     const state = reactive({
       display: false,
+      displayName: '',
     });
 
+    const context = useContext();
+
     const authState = useState();
+
+    const displayName = useAsync(async () => {
+      if (!authState.user.loggedIn) context.redirect('/');
+
+      const db = useFirestore();
+      const userData = await db
+        .collection('users')
+        .doc(authState.user.uid)
+        .get();
+
+      return userData.data()?.displayName;
+    });
+
+    async function logOut() {
+      const auth = useFirebaseAuth();
+
+      authState.user.loggedIn = false;
+
+      await auth.signOut();
+
+      context.redirect('/');
+    }
 
     return {
       state,
       authState,
+      logOut,
+      displayName,
     };
   },
 });

@@ -26,17 +26,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'nuxt-composition-api';
+import {
+  defineComponent,
+  ref,
+  useFetch,
+  useContext,
+} from 'nuxt-composition-api';
 import { useFirebaseAuth } from '../plugins/firebase';
 import { useState } from '../plugins/state';
 import { StateType } from '../plugins/types';
 
 export default defineComponent({
-  setup(_, setupContext) {
+  setup() {
+    const authState: StateType = useState();
+    const context = useContext();
+
+    useFetch(() => {
+      if (authState.user.loggedIn) context.redirect('/board');
+    });
+
     const emailProv = ref('');
     const passwordProv = ref('');
-
-    const state: StateType = useState();
 
     const auth = useFirebaseAuth();
 
@@ -47,14 +57,14 @@ export default defineComponent({
           passwordProv.value,
         );
 
-        if (user) {
-          state.user = {
-            email: user.user?.email,
-            uid: user.user?.uid,
+        if (user && user.user) {
+          authState.user = {
+            uid: user.user.uid,
+            email: user.user.email,
             loggedIn: true,
           };
 
-          setupContext.root.$router.push('/board');
+          context.redirect('/board');
         }
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -66,7 +76,6 @@ export default defineComponent({
       emailProv,
       passwordProv,
       signInWithEmailAndPassword,
-      state,
     };
   },
 });

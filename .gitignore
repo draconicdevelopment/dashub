@@ -88,3 +88,9 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# service workers
+static/firebase-auth-sw.js
+
+# service-account credentials
+service-account.json
