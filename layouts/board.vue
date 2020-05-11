@@ -9,7 +9,7 @@
       </div>
       <div>
         <div class="user">
-          <span class="user-name">{{ displayName }}</span>
+          <span class="user-name">{{ state.displayName }}</span>
           <div class="user-avatar-wrap">
             <div class="user-avatar"></div>
           </div>
@@ -141,7 +141,7 @@
 import {
   defineComponent,
   reactive,
-  useAsync,
+  useFetch,
   useContext,
 } from 'nuxt-composition-api';
 import { useState } from '../plugins/state';
@@ -155,10 +155,9 @@ export default defineComponent({
     });
 
     const context = useContext();
-
     const authState = useState();
 
-    const displayName = useAsync(async () => {
+    useFetch(async () => {
       if (!authState.user.loggedIn) context.redirect('/');
 
       const db = useFirestore();
@@ -167,15 +166,19 @@ export default defineComponent({
         .doc(authState.user.uid)
         .get();
 
-      return userData.data()?.displayName;
+      state.displayName = userData.data()?.displayName;
     });
 
     async function logOut() {
       const auth = useFirebaseAuth();
 
-      authState.user.loggedIn = false;
-
       await auth.signOut();
+
+      authState.user = {
+        uid: '',
+        email: '',
+        loggedIn: false,
+      };
 
       context.redirect('/');
     }
@@ -184,7 +187,6 @@ export default defineComponent({
       state,
       authState,
       logOut,
-      displayName,
     };
   },
 });
