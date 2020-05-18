@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-lel">
     <div class="card">
       <div class="card-content">
         <div class="logo"></div>
@@ -82,7 +82,7 @@ export default defineComponent({
 </script>
 
 <style lang="sass">
-.container
+.container-lel
   height: 100vh
   display: flex
   justify-content: center

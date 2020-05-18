@@ -67,10 +67,11 @@ const config: Configuration = {
    ** Nuxt.js dev-modules
    */
   buildModules: [
+    'nuxt-composition-api',
     '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
     '@nuxt/typescript-build',
-    'nuxt-composition-api',
+    '@nuxtjs/tailwindcss',
   ],
 
   typescript: {
@@ -113,6 +114,9 @@ const config: Configuration = {
       dev: false,
       swURL: '/firebase-auth-sw.js',
     },
+  },
+  tailwindcss: {
+    exposeConfig: true,
   },
   /*
    ** Axios module configuration
