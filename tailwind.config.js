@@ -5,7 +5,12 @@
  ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
  */
 module.exports = {
-  theme: {},
+  theme: {
+    colors: {
+      'dash-primary': '#202020',
+      'dash-secondary': '#303030',
+    },
+  },
   variants: {},
   plugins: [],
   purge: {

@@ -80,6 +80,8 @@
     "lint-staged": "^10.0.0",
     "node-sass": "^4.13.1",
     "prettier": "^1.19.1",
+    "pug": "^2.0.4",
+    "pug-plain-loader": "^1.0.0",
     "sass-loader": "^8.0.2",
     "stylelint": "^13.2.1",
     "ts-jest": "^25.2.1",
