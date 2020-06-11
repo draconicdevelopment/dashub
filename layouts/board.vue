@@ -9,7 +9,12 @@
       </div>
       <div>
         <div class="user">
-          <span class="user-name">{{ state.displayName }}</span>
+          <div>
+            <span class="user-name">{{ state.displayName }}</span>
+            <span class="logout-btn">
+              <button @click="logOut">Sign out</button>
+            </span>
+          </div>
           <div class="user-avatar-wrap">
             <div class="user-avatar"></div>
           </div>
@@ -32,9 +37,7 @@
         </div>
       </div>
       <ul class="drawer-nav">
-        <li class="nav-item">
-          <button @click="logOut">Sign out</button>
-        </li>
+        <li class="nav-item"></li>
       </ul>
     </div>
     <nuxt />
@@ -78,6 +81,16 @@
       margin-right: 28px
       color: #FFFFFF
 
+    .logout-btn
+      // background: linear-gradient(135deg, #8A2BE2 0%, #E22BD0 100%)
+      padding: 0px 24%
+      border-radius: 25px
+      color: #FFFFFF
+      border: 2px solid #E22BD0
+
+      &:focus
+        outline: none
+
     .user-avatar-wrap
       width: 72px
       height: 72px
@@ -86,9 +99,10 @@
       position: relative
 
       .user-avatar
-        background-image: url('../static/img/user.png')
+        background-image: url('../static/img/user.jpg')
         border-radius: 50%
         background-position: center center
+        background-size: cover
         position: absolute
         top: 50%
         left: 50%

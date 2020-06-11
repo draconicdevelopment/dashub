@@ -108,6 +108,8 @@ const config: Configuration = {
     },
   },
 
+  serverMiddleware: ['~/api/index.ts'],
+
   pwa: {
     workbox: {
       importScripts: ['/firebase-auth-sw.js'],
