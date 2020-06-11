@@ -1,15 +1,15 @@
+import * as admin from 'firebase-admin';
+
 export default function(req: any, res: any, next: () => void) {
-  const admin = require('firebase-admin');
   const serviceAccount = require('../service-account.json');
 
   // The Firebase Admin SDK is used here to verify the ID token.
-  if (admin.apps.length < 2) {
-    admin.initializeApp(
-      {
-        credential: admin.credential.cert(serviceAccount),
-      },
-      'admin',
-    );
+  console.log(admin.apps.length);
+
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
   }
 
   const idToken = getIdToken(req);

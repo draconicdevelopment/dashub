@@ -14,7 +14,8 @@ const firebaseConfig = {
 };
 
 export const provideFirebase = () => {
-  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  if (!firebase.apps.some((app) => app?.name === 'client'))
+    firebase.initializeApp(firebaseConfig, 'client');
 };
 
 export const useFirebaseAuth = () => {

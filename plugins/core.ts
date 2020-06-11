@@ -15,6 +15,8 @@ export default (context) => {
       const { res, beforeNuxtRender } = context;
       const user = res.locals.user;
 
+      console.log(res.locals);
+
       if (user) {
         state.user = {
           uid: user.uid,
