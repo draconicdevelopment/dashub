@@ -19,7 +19,7 @@ export default function(req: any, res: any, next: () => void) {
     .auth()
     .verifyIdToken(idToken)
     .then((decodedClaims: any) => {
-      res.locals.decodedClaims = decodedClaims;
+      res.locals.user = decodedClaims;
     })
     .catch(() => {
       next();

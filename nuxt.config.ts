@@ -83,30 +83,7 @@ const config: Configuration = {
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    '@nuxtjs/dotenv',
-    '@nuxtjs/firebase',
-  ],
-
-  firebase: {
-    config: {
-      apiKey: 'AIzaSyBp95Odjc3I3WG7k4DGSSqb9LZC1FKExZQ',
-      authDomain: 'dashub-ecfb7.firebaseapp.com',
-      databaseURL: 'https://dashub-ecfb7.firebaseio.com',
-      projectId: 'dashub-ecfb7',
-      storageBucket: 'dashub-ecfb7.appspot.com',
-      messagingSenderId: '874351010489',
-      appId: '1:874351010489:web:e54fc45f23d51834923168',
-      measurementId: 'G-3F2M69JSHM',
-    },
-    services: {
-      auth: {
-        ssr: true,
-      },
-    },
-  },
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/dotenv'],
 
   serverMiddleware: ['~/api/index.ts'],
 
