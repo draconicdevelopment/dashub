@@ -10,13 +10,18 @@
       <div>
         <div class="user">
           <div>
-            <span class="user-name">{{ state.displayName }}</span>
+            <span class="user-name">{{ authState.user.displayName }}</span>
             <span class="logout-btn">
               <button @click="logOut">Sign out</button>
             </span>
           </div>
           <div class="user-avatar-wrap">
-            <div class="user-avatar"></div>
+            <img
+              class="user-avatar"
+              :src="authState.user.profilePicture"
+              height="64"
+              width="64"
+            />
           </div>
         </div>
       </div>
@@ -159,28 +164,19 @@ import {
   useContext,
 } from 'nuxt-composition-api';
 import { useState } from '../plugins/state';
-import { useFirebaseAuth, useFirestore } from '../plugins/firebase';
+import { useFirebaseAuth } from '../plugins/firebase';
 
 export default defineComponent({
   setup() {
     const state = reactive({
       display: false,
-      displayName: '',
     });
 
     const context = useContext();
     const authState = useState();
 
-    useFetch(async () => {
+    useFetch(() => {
       if (!authState.user.loggedIn) context.redirect('/');
-
-      const db = useFirestore();
-      const userData = await db
-        .collection('users')
-        .doc(authState.user.uid)
-        .get();
-
-      state.displayName = userData.data()?.displayName;
     });
 
     async function logOut() {
@@ -192,6 +188,7 @@ export default defineComponent({
         uid: '',
         email: '',
         loggedIn: false,
+        admin: false,
       };
 
       context.redirect('/');

@@ -7,9 +7,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from 'nuxt-composition-api';
+import {
+  defineComponent,
+  ref,
+  Ref,
+  useFetch,
+  useContext,
+} from 'nuxt-composition-api';
 import { DocumentData } from '@firebase/firestore-types';
 import { useFirestore } from '@/plugins/firebase';
+import { useState } from '@/plugins/state';
 
 import { dashUserCard } from '@/components/atoms/user-card';
 
@@ -19,6 +26,14 @@ export default defineComponent({
     dashUserCard,
   },
   setup() {
+    const context = useContext();
+    const authState = useState();
+
+    useFetch(() => {
+      console.log(authState);
+      if (!authState.user.admin) context.redirect('/board');
+    });
+
     const users: Ref<Array<DocumentData>> = ref([]);
 
     const db = useFirestore();

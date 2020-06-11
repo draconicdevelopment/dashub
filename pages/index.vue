@@ -32,7 +32,7 @@ import {
   useFetch,
   useContext,
 } from 'nuxt-composition-api';
-import { useFirebaseAuth } from '../plugins/firebase';
+import { useFirebaseAuth, useFirestore } from '../plugins/firebase';
 import { useState } from '../plugins/state';
 import { StateType } from '../plugins/types';
 
@@ -49,6 +49,7 @@ export default defineComponent({
     const passwordProv = ref('');
 
     const auth = useFirebaseAuth();
+    const firestore = useFirestore();
 
     async function signInWithEmailAndPassword() {
       try {
@@ -57,10 +58,20 @@ export default defineComponent({
           passwordProv.value,
         );
 
-        if (user && user.user) {
+        const dataResult = await firestore
+          .collection('users')
+          .doc(user.user?.uid)
+          .get();
+
+        const userData = dataResult.data();
+
+        if (user.user && userData) {
           authState.user = {
             uid: user.user.uid,
             email: user.user.email,
+            displayName: userData.displayName,
+            profilePicture: userData.profilePicture,
+            admin: userData.admin,
             loggedIn: true,
           };
 
