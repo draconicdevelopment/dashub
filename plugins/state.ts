@@ -9,6 +9,7 @@ export const provideState = () => {
       uid: '',
       email: '',
       loggedIn: false,
+      admin: false,
     },
   });
   provide(StateSymbol, globalState);

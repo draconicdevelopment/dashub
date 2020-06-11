@@ -1,10 +1,7 @@
 import * as admin from 'firebase-admin';
 
-export default function(req: any, res: any, next: () => void) {
+export default async function(req: any, res: any, next: () => void) {
   const serviceAccount = require('../service-account.json');
-
-  // The Firebase Admin SDK is used here to verify the ID token.
-  console.log(admin.apps.length);
 
   if (!admin.apps.length) {
     admin.initializeApp({
@@ -12,22 +9,30 @@ export default function(req: any, res: any, next: () => void) {
     });
   }
 
-  const idToken = getIdToken(req);
-  // Verify the ID token using the Firebase Admin SDK.
-  // User already logged in. Redirect to profile page.
-  admin
-    .auth()
-    .verifyIdToken(idToken)
-    .then((decodedClaims: any) => {
-      res.locals.user = decodedClaims;
-    })
-    .catch(() => {
-      next();
-    });
+  const idToken = getIdToken();
+
+  try {
+    const { uid, email } = await admin.auth().verifyIdToken(idToken);
+    const dataResult = await admin
+      .firestore()
+      .collection('users')
+      .doc(uid)
+      .get();
+
+    const userData = dataResult.data();
+
+    res.locals.user = {
+      uid,
+      email,
+      displayName: userData?.displayName,
+      profilePicture: userData?.profilePicture,
+      admin: userData?.admin,
+    };
+  } catch {}
 
   next();
 
-  function getIdToken(req: any) {
+  function getIdToken() {
     // Parse the injected ID token from the request header.
     const authorizationHeader = req.headers.authorization || '';
     const components = authorizationHeader.split(' ');

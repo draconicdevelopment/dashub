@@ -13,14 +13,13 @@ export default (context) => {
 
     if (process.server) {
       const { res, beforeNuxtRender } = context;
-      const user = res.locals.user;
+      const userData = res.locals.user;
 
-      console.log(res.locals);
+      console.log(userData);
 
-      if (user) {
+      if (userData) {
         state.user = {
-          uid: user.uid,
-          email: user.email,
+          ...userData,
           loggedIn: true,
         };
       }
@@ -36,9 +35,7 @@ export default (context) => {
 
       if (nuxtState.serverState.user) {
         state.user = {
-          uid: nuxtState.serverState.user.uid,
-          email: nuxtState.serverState.user.email,
-          loggedIn: nuxtState.serverState.user.loggedIn,
+          ...nuxtState.serverState.user,
         };
       }
     }
