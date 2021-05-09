@@ -82,7 +82,7 @@
     "pug": "2.0.4",
     "pug-plain-loader": "1.0.0",
     "sass-loader": "8.0.2",
-    "stylelint": "13.3.3",
+    "stylelint": "13.13.1",
     "ts-jest": "25.4.0",
     "vue-jest": "4.0.0-beta.2"
   }
